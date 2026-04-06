@@ -68,7 +68,9 @@ int main() {
     int l_insert = 0; // time in nanoseconds to insert in list
     // list<string>::iterator l_mid = myList.begin() + (myList.size() / 2); // not working
     list<string>::iterator l_mid = myList.begin();
-    // make l_mid point to middle item
+    // TODO make l_mid point to middle item
+    for(int i = 0; i < myList.size(); ++i)
+        ++l_mid;
     myList.emplace(l_mid, "TESTCODE");
 
     // insert "TESTCODE" in the set
@@ -78,13 +80,19 @@ int main() {
     // TEST 4: DELETE
     // delete the middle item from the vector
     int v_delete = 0; // time in nanoseconds to delete middle item from vector
+    // v_mid still points to the middle one
+    myVector.erase(v_mid);
 
     // delete the middle item from the list
     int l_delete = 0; // time in nanoseconds to delete the middle item from list
+    myList.erase(l_mid);
 
     // delete the middle item from the set
     int s_delete = 0; // time in nanoseconds to delete the middle item from set
-
+    // now we do need an iterator to the middle item
+    set<string>::iterator s_mid = mySet.begin();
+    // TODO make s_mid point to middle item
+    mySet.erase(s_mid);
 
     // display the results
     cout << setw(10) << "Operation" << setw(10) << "Vector" << setw(10) << "List" << setw(10) << "Set" << endl;
