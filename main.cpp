@@ -8,6 +8,7 @@
 #include <string>
 #include <algorithm>
 using namespace std;
+using namespace std::chrono;
 
 int main() {
     // get the contents of the file into an input stream object
@@ -19,17 +20,25 @@ int main() {
     // create and populate a vector from the file
     int v_read = 0; // time in nanoseconds it takes to read the data into the vector
     vector<string> myVector;
+    // start timing
+    auto start = high_resolution_clock::now();
+    // read from the file into vector
     while (!inFile.eof()){
         getline(inFile, code);
         myVector.push_back(code);
     }
-
+    // end timing
+    auto end = high_resolution_clock::now();
+    // calculate duration
+    auto duration = duration_cast<nanoseconds>(end - start);
+    v_read = duration.count();
+    
     //  create and populate a list from the file
     int l_read = 0; // time in nanoseconds it takes to read the data into the list
     list<string> myList;
     inFile.clear(); 
     inFile.seekg(0, ios::beg);
-        while (!inFile.eof()){
+    while (!inFile.eof()){
         getline(inFile, code);
         myList.push_back(code);
     }
@@ -39,11 +48,12 @@ int main() {
     set<string> mySet;
     inFile.clear(); 
     inFile.seekg(0, ios::beg);
-        while (!inFile.eof()){
+    while (!inFile.eof()){
         getline(inFile, code);
         mySet.insert(code);
     }
 
+    // done reading from file
     inFile.close();
 
     // TASK 2: SORT
@@ -53,7 +63,7 @@ int main() {
 
     // sort the list
     int l_sort = 0; // time in nanoseconds it takes to sort the list
-    sort(myList.begin(), myList.end());
+    myList.sort();
 
     // the set is already sorted
     int s_sort = -1;
@@ -68,9 +78,9 @@ int main() {
     int l_insert = 0; // time in nanoseconds to insert in list
     // list<string>::iterator l_mid = myList.begin() + (myList.size() / 2); // not working
     list<string>::iterator l_mid = myList.begin();
-    // TODO make l_mid point to middle item
-    for(int i = 0; i < myList.size(); ++i)
-        ++l_mid;
+    // make l_mid point to middle item
+    for(int i = 0; i < myList.size() / 2; ++i)
+        advance(l_mid, 1);
     myList.emplace(l_mid, "TESTCODE");
 
     // insert "TESTCODE" in the set
@@ -91,7 +101,9 @@ int main() {
     int s_delete = 0; // time in nanoseconds to delete the middle item from set
     // now we do need an iterator to the middle item
     set<string>::iterator s_mid = mySet.begin();
-    // TODO make s_mid point to middle item
+    // make s_mid point to middle item
+    for(int i = 0; i < mySet.size() / 2; ++i)
+        advance(s_mid, 1);
     mySet.erase(s_mid);
 
     // display the results
