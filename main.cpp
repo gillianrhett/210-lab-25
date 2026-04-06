@@ -119,7 +119,6 @@ int main() {
     // start timing
     start = high_resolution_clock::now();
     // insert item in the middle
-    // list<string>::iterator l_mid = myList.begin() + (myList.size() / 2); // not working
     list<string>::iterator l_mid = myList.begin();
     // make l_mid point to middle item
     for(int i = 0; i < myList.size() / 2; ++i)
@@ -162,6 +161,7 @@ int main() {
     // start timing
     start = high_resolution_clock::now();
     // delete item from the middle
+    // l_mid still points to the middle one
     myList.erase(l_mid);
     // end timing
     end = high_resolution_clock::now();
@@ -174,7 +174,7 @@ int main() {
     // start timing
     start = high_resolution_clock::now();
     // delete item from the middle
-    // now we do need an iterator to the middle item
+    // create an iterator for the set
     set<string>::iterator s_mid = mySet.begin();
     // make s_mid point to middle item
     for(int i = 0; i < mySet.size() / 2; ++i)
