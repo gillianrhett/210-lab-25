@@ -61,14 +61,19 @@ int main() {
     // TASK 3: INSERT
     // insert "TESTCODE" in the middle of the vector
     int v_insert = 0; // time in nanoseconds to insert in vector
-    iterator mid = myVector.at(myVector.size() / 2);
-    myVector.emplace(mid, "TESTCODE");
+    vector<string>::iterator v_mid = myVector.begin() + (myVector.size() / 2); // points to the middle item
+    myVector.emplace(v_mid, "TESTCODE");
 
     // insert "TESTCODE" in the middle of the list
     int l_insert = 0; // time in nanoseconds to insert in list
+    // list<string>::iterator l_mid = myList.begin() + (myList.size() / 2); // not working
+    list<string>::iterator l_mid = myList.begin();
+    // make l_mid point to middle item
+    myList.emplace(l_mid, "TESTCODE");
 
-    // insert "TESTCODE" in the middle of the set
+    // insert "TESTCODE" in the set
     int s_insert = 0; // time in nanoseconds to insert in set
+    mySet.insert("TESTCODE");
 
     // TEST 4: DELETE
     // delete the middle item from the vector
